@@ -26,16 +26,78 @@ exports.initialize = function(pathsObj) {
 // modularize your code. Keep it clean!
 
 exports.readListOfUrls = function(callback) {
+  fs.readFile(exports.paths.list, 'utf8', (err, data) => {
+    if (err) {
+      throw err;
+    }
+    callback(data.split('\n'));
+  });
 };
 
 exports.isUrlInList = function(url, callback) {
+  fs.readFile(exports.paths.list, 'utf8', (err, data) => {
+    if (err) {
+      throw err;
+    }
+    callback(data.split('\n').includes(url));
+  });
+
 };
 
 exports.addUrlToList = function(url, callback) {
+  fs.appendFile(exports.paths.list, url, 'utf8', callback);
 };
 
 exports.isUrlArchived = function(url, callback) {
+  fs.stat(exports.paths.archivedSites + '/' + url, (err, stats) => {
+    if (err) {
+      callback(false);
+    }
+    callback(stats.isFile());
+  });
 };
 
 exports.downloadUrls = function(urls) {
+  var pendingUrls = [];
+  fs.readFile(exports.paths.list, 'utf8', (err, data) => {
+    var urlArr = data.split('\n');
+    console.log('urlArr', urlArr);
+    for (var i = 0; i < urlArr.length; i++) { 
+      if (!exports.isUrlArchived(urlArr[i])) {
+        pendingUrls.push(urlArr[i]);
+        console.log('pending', pendingUrls);
+      }
+    }
+  });
+
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
