@@ -60,8 +60,10 @@ exports.isUrlArchived = function(url, callback) {
 };
 
 exports.downloadUrls = function(urls) {
-  urls.forEach(function(url) {
-    request('http://' + url).pipe(fs.createWriteStream(exports.paths.archivedSites + '/' + url));
+  urls = urls.slice(0, urls.length - 1);
+  urls.forEach((url) => {
+    request('http://' + url)
+    .pipe(fs.createWriteStream(exports.paths.archivedSites + '/' + url));
   });
 };
 

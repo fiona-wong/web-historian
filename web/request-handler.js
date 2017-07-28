@@ -24,28 +24,6 @@ exports.handleRequest = function (req, res) {
         archive.addUrlToList(inputUrl); 
         httpHelp.serveAssets(res, archive.paths.siteAssets + '/loading.html');
       }
-      console.log(inputUrl);
     });
-
   }
-  
-//  res.end(archive.paths.list);
 };
-
-// var actions = {
-//   'GET': function(request, response) {
-//     utils.sendResponse(response, {results: messages});
-//   },
-//   'POST': function(request, response) {
-//     utils.collectData(request, function(message) {
-//       message.objectId = ++objectIdCounter;
-//       messages.push(message);
-//       utils.sendResponse(response, {objectId: message.objectId}, 201);
-//     });
-//   },
-//   'OPTIONS': function(request, response) {
-//     utils.sendResponse(response, null);
-//   }
-// };
-
-// exports.requestHandler = utils.makeActionHandler(actions);
