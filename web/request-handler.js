@@ -16,14 +16,22 @@ exports.handleRequest = function (req, res) {
     });
     req.on('end', function() {
       inputUrl = inputUrl.slice(4);
-      if (archive.isUrlArchived(inputUrl, function(exists) {
-        return exists;
-      })) {
-        httpHelp.serveAssets(res, archive.paths.archivedSites + '/' + inputUrl);
-      } else {
-        archive.addUrlToList(inputUrl); 
-        httpHelp.serveAssets(res, archive.paths.siteAssets + '/loading.html');
-      }
+      archive.isUrlArchived(inputUrl, function(exists) {
+        if (exists) {
+          httpHelp.serveAssets(res, archive.paths.archivedSites + '/' + inputUrl);
+        } else {
+          archive.addUrlToList(inputUrl); 
+          httpHelp.serveAssets(res, archive.paths.siteAssets + '/loading.html');          
+        }
+      });
+
+      //   return exists;
+      // })) {
+      //   httpHelp.serveAssets(res, archive.paths.archivedSites + '/' + inputUrl);
+      // } else {
+        // archive.addUrlToList(inputUrl); 
+        // httpHelp.serveAssets(res, archive.paths.siteAssets + '/loading.html');
+      // }
     });
   }
 };

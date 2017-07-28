@@ -15,7 +15,8 @@ exports.serveAssets = function(res, asset, callback) {
 
   fs.readFile(asset, 'utf8', (err, data) => {
     if (err) {
-      exports.serveAssets(res, archive.paths.siteAssets + '/loading.html');
+      res.writeHead(404, exports.headers);
+      res.end();
     }
     res.writeHead(statusCode, exports.headers);
     res.write(data);

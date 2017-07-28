@@ -51,11 +51,13 @@ exports.addUrlToList = function(url, callback) {
 };
 
 exports.isUrlArchived = function(url, callback) {
+  // var sitePath = path.join(exports.paths.archivedSites, url);
+
+  // fs.access(sitePath, function(err) {
+  //   callback(!err);
+  // });
   fs.stat(exports.paths.archivedSites + '/' + url, (err, stats) => {
-    if (err) {
-      callback(false);
-    }
-    callback(true);
+    callback(!err);
   });
 };
 
